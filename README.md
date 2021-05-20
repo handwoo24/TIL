@@ -8,3 +8,16 @@ TIL, Today I Learned의 목표
 2. 일주일에 5회 이상, 하루에 한 개 이상 작성하기
 3. 주간 계획, 회고 작성하기
 4. 일주일에 책 한권 이상 읽기
+
+관심 리스트
+---------
+
+Python
+Django
+리액트
+
+독서 리스트
+--------
+[혼자 공부하는 머신러닝 + 딥러닝](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9791162243664&orderClick=LEa&Kc=)
+[만들면서 배우는 Git, GitHub 입문](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788968482021&orderClick=LAG&Kc=)
+[리액트를 다루는 기술](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9791160508796&orderClick=LAG&Kc=)
