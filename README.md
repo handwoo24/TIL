@@ -22,21 +22,21 @@ Django
 
 독서 리스트
 --------
-[혼자 공부하는 머신러닝 + 딥러닝](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9791162243664&orderClick=LEa&Kc=)
+- [x] [혼자 공부하는 머신러닝 + 딥러닝](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9791162243664&orderClick=LEa&Kc=)
 
-[만들면서 배우는 Git, GitHub 입문](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788968482021&orderClick=LAG&Kc=)
+- [x] [만들면서 배우는 Git, GitHub 입문](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788968482021&orderClick=LAG&Kc=)
 
-[리액트를 다루는 기술](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9791160508796&orderClick=LAG&Kc=)
+- [ ] [리액트를 다루는 기술](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9791160508796&orderClick=LAG&Kc=)
 
 ***
 
 주간 할 일
 --------
-*1주차: 21.05.20 ~ 21.05.23
-    +TIL 목표 설정
-    +월간 목표 설정
-    +주간 계획 수립
+* 1주차: 21.05.20 ~ 21.05.23   
+    + TIL 목표 설정   
+    + 월간 목표 설정   
+    + 주간 계획 수립   
 
 주간 한 일
 --------
-*1주차: 21.05.20 ~ 21.05.23
+* 1주차: 21.05.20 ~ 21.05.23   
