@@ -1,13 +1,45 @@
-import React from 'react';
-import './App.css';
+// import React, { Component } from 'react';
 
-//step 2.4.7  class 대신 className, 2.4.8 주석 작성하기.
-//App.css에 .react라고 작성한 게 className인 듯, 바꿔보자.
-function App(){
-  const name = '이쁜이';
-  {/*주석 달아보기*/}
-  return <div className="goodman">{name}//이런건 주석이 아님</div>;
-}
+// //이전 것과는 달리 이건 클래스형 컴포넌트, 함수형 과는 달리 라이프사이클 기능, state기능을 사용할 수 있다?
+// class App extends Component {
+//   render(){
+//     const name = 'react';
+//     return <div className='react'>{name}</div>;
+//   }
+// }
+
+// export default App;
+
+
+// //step 3.2.3 모듈 내보내기 및 불러오기
+// import React from 'react';
+// import MyComponent from './MyComponent';
+
+// //화살표랑 function이랑 바꿔서 작성해보았다. 개인적으로 function이 더 나은듯?
+// const App = function(){
+//   return <MyComponent />
+// }
+
+// export default App;
+
+
+// //step 3.3.2 props 지정하기
+// import React from 'react';
+// import MyComponent from './MyComponent';
+
+// const App = function(){
+//   return <MyComponent />;
+// };
+
+// export default App;
+
+
+//steps 3.3.4
+import React from 'react';
+import MyComponent from './MyComponent';
+
+const App = () => {
+  return <MyComponent name="화살표'ㅅ'">화살표 싫어</MyComponent>;
+};
 
 export default App;
-//옆에 빨간 표시가 뜨는데, 뭐가 오류인걸까? 원인 불명...
