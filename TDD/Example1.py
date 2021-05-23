@@ -1,7 +1,9 @@
 def testMultiplication():
     five = Dollar(5)
-    five.times(2)
-    assert 10 == five.amount
+    Product = five.times(2)
+    assert 10 == Product.amount
+    Product = five.times(3)
+    assert 15 == Product.amount
 # 아직은 컴파일 될 수 없는 코드다. 이런 기능의 함수를 만들고 싶은걸까?
 # 책에서 말하는 이 코드의 4가지 문제, 1. Dollar 클래스가 없음 2. 생성자가 없음 3. time(int)메서드가 없음 4. amonut 필드가 없음
 # 먼저 Dollar 클래스를 선언할 것이다. 사실 나는 객체에 익숙하지 않다.
@@ -12,7 +14,7 @@ class Dollar():
         self.amount = amount
 
     def times(self, multiplier):
-        self.amount *= multiplier
+        return Dollar(self.amount * multiplier)
 
 
 # 음, assertEquals는 자바의 기능일까? 어쩌면 그냥 assert와 조건문으로 작성해야 할 듯 하다.
@@ -22,3 +24,5 @@ class Dollar():
 
 testMultiplication()
 # 잘 작동한다.
+# 거듭 책에서 강조하는 내용은, 빠르게 테스트가 돌아가는 나쁜? 코드를 만든 다음, 다시금 그 나쁜 것을 되돌리는 순서를 강조하고 있다.
+# 그것이 올바르게 작동하는 것보다, 일단 작동하는 것에 먼저 초점을 맞추는 건가. 가짜로 구현한다는 표현을 쓰고 있다.
