@@ -16,9 +16,10 @@ class Dollar():
     def times(self, multiplier):
         return Dollar(self.amount * multiplier)
 
-    def equals(self):
-        return True
-    # 일단 이런 식으로 껍데기를 짜는게 여기서 말하는 가짜 구현?
+    def equals(self, object):
+        return self.amount == object.amount
+    # [3-1] 일단 이런 식으로 껍데기를 짜는게 여기서 말하는 가짜 구현?
+    # [3-2] 책과는 달리 파이썬으로 작성하다보니, 표현이 달라서 맞나 싶지만, 되니까 맞는게 아닐까?
 
 
 # 음, assertEquals는 자바의 기능일까? 어쩌면 그냥 assert와 조건문으로 작성해야 할 듯 하다.
@@ -37,3 +38,5 @@ testMultiplication()
 
 def testEquality():
     assert Dollar(5).equals(Dollar(5))
+    assert not(Dollar(5).equals(Dollar(6)))
+# [3-1]책에 서는 assertTrue 라던가 하는 기능들이 있는데, 파이썬에는 그런게 없는 듯, 자동완성이 나오지 않는다.
