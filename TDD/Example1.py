@@ -1,23 +1,30 @@
-def testMultiplication():
-    five = Dollar(5)
-    Product = five.times(2)
-    assert 10 == Product.amount
-    Product = five.times(3)
-    assert 15 == Product.amount
+import unittest
+
+
+class testMultiplication(unittest.TestCase):
+    def test(self):
+        five = Dollar(5)
+        self.assertEquals(Dollar(10), five.times(2))
+        self.assertEquals(Dollar(15), five.times(3))
 # 아직은 컴파일 될 수 없는 코드다. 이런 기능의 함수를 만들고 싶은걸까?
 # 책에서 말하는 이 코드의 4가지 문제, 1. Dollar 클래스가 없음 2. 생성자가 없음 3. time(int)메서드가 없음 4. amonut 필드가 없음
 # 먼저 Dollar 클래스를 선언할 것이다. 사실 나는 객체에 익숙하지 않다.
+# [4-2] 문제가 있다. Dollar(10) 과 five.times(2)는 같은 Dollar에 10이 입력되는 객체인건 같은데, 아이디? 값이 달라서, 다른 객체로 인식된다.
+# [4-2] 음... 기존 코드에서는 amount라는 속성으로 정수형 변수값을 비교한 건데, 이렇게 객체 자체를 비교하는건 다른 객체로 인식되는 듯하다. 자바는 어떤지 모르겠지만.
+# [4-2] 새로운 방법을 찾아냈다. unittest라는 모듈을 이용하는 것인데, 코드를 전면 수정할 필요가 있어 보인다. 테스트 함수가 아닌 테스트 객체를 다루어야 하는 듯 하다. 해결.
+# [4-2] 흠, 다른 정보로는 unittest 보다 pytest라는 모듈을 사용하는 방법도 있는 듯 하다.
 
 
 class Dollar():
     def __init__(self, amount):
-        self.amount = amount
+        self.__amount = amount
+        # [4-1] 파이썬의 비공개 속성은 __만 앞에 붙이면 된다. 그런데 표현할 때에는 안바꿔도 되나? 응, 안된다. __를 붙여야 하는 듯 하다.
 
     def times(self, multiplier):
-        return Dollar(self.amount * multiplier)
+        return Dollar(self.__amount * multiplier)
 
-    def equals(self, object):
-        return self.amount == object.amount
+    # def equals(self, object):
+        # return self.__amount == object
     # [3-1] 일단 이런 식으로 껍데기를 짜는게 여기서 말하는 가짜 구현?
     # [3-2] 책과는 달리 파이썬으로 작성하다보니, 표현이 달라서 맞나 싶지만, 되니까 맞는게 아닐까?
 
