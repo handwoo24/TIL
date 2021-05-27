@@ -4,9 +4,9 @@ from unittest.case import TestCase
 
 class testMultiplication(unittest.TestCase):
     def test(self):
-        five = Dollar(5)
-        self.assertEquals(Dollar(10).amount, five.times(2).amount)
-        self.assertEquals(Dollar(15).amount, five.times(3).amount)
+        five = Money.dollar(5)
+        self.assertEquals(Money.dollar(10).amount, five.times(2).amount)
+        self.assertEquals(Money.dollar(15).amount, five.times(3).amount)
 # 아직은 컴파일 될 수 없는 코드다. 이런 기능의 함수를 만들고 싶은걸까?
 # 책에서 말하는 이 코드의 4가지 문제, 1. Dollar 클래스가 없음 2. 생성자가 없음 3. time(int)메서드가 없음 4. amonut 필드가 없음
 # 먼저 Dollar 클래스를 선언할 것이다. 사실 나는 객체에 익숙하지 않다.
@@ -35,6 +35,12 @@ class Money():
     def equals(self, object):
         return self.amount == object.amount and self.__class__ .__name__ == object.__class__.__name__
 
+    def dollar(amount):
+        return Dollar(amount)
+
+    def franc(amount):
+        return Franc(amount)
+
 
 class Dollar(Money):
 
@@ -43,7 +49,7 @@ class Dollar(Money):
         super().__init__(amount)
 
     def times(self, multiplier):
-        return Dollar(self.amount * multiplier)
+        return Money(self.amount * multiplier)
     # [4-1] 파이썬의 비공개 속성은 __만 앞에 붙이면 된다. 그런데 표현할 때에는 안바꿔도 되나? 응, 안된다. __를 붙여야 하는 듯 하다.
     # [3-1] 일단 이런 식으로 껍데기를 짜는게 여기서 말하는 가짜 구현?
     # [3-2] 책과는 달리 파이썬으로 작성하다보니, 표현이 달라서 맞나 싶지만, 되니까 맞는게 아닐까?
@@ -64,9 +70,9 @@ class Dollar(Money):
 
 class testEquality(unittest.TestCase):
     def test(self):
-        self.assertTrue(Dollar(5).equals(Dollar(5)))
-        self.assertFalse(Dollar(5).equals(Dollar(6)))
-        self.assertFalse(Dollar(5).equals(Franc(5)))
+        self.assertTrue(Money.dollar(5).equals(Money.dollar(5)))
+        self.assertFalse(Money.dollar(5).equals(Money.dollar(6)))
+        self.assertFalse(Money.dollar(5).equals(Money.franc(5)))
 # [7-1] 클래스의 이름으로 equals를 하고 싶어서 __class__.__name__이라고 길게 써야했는데, __class__로만 해도 충분히 작동한다.
 
 # [3-1]책에 서는 assertTrue 라던가 하는 기능들이 있는데, 파이썬에는 그런게 없는 듯, 자동완성이 나오지 않는다.
@@ -74,9 +80,9 @@ class testEquality(unittest.TestCase):
 
 class testFrancMultiplication(unittest.TestCase):
     def test(self):
-        five = Franc(5)
-        self.assertEquals(Franc(10).amount, five.times(2).amount)
-        self.assertEquals(Franc(15).amount, five.times(3).amount)
+        five = Money.franc(5)
+        self.assertEquals(Money.franc(10).amount, five.times(2).amount)
+        self.assertEquals(Money.franc(15).amount, five.times(3).amount)
 
 
 class Franc(Money):
@@ -84,13 +90,18 @@ class Franc(Money):
         super().__init__(amount)
 
     def times(self, multiplier):
-        return Franc(self.amount * multiplier)
+        return Money(self.amount * multiplier)
+
+
 # [5-1] 일단 책에서 진행하는 amount의 private 전환은 하지 않기로 했다. 당장 객체의 아이디가 새로 부여되서 Dollar(5) == Dollar(5)도 되지 않는다...
 # 원인은 진행하면서 찾기로 하고, 여기까지는 정상적으로 테스트가 진행된다.
 # [6-1] 싱글톤 스타일 이라는 걸 알게 되서 시도해봤는데, Dollar(5) == Dollar(6)가 되버린다. Dollar라는 객체는 모두 같게 되어버리는 듯 한데, 원하던 결과가 아니다. 게다가 엄청 길다.
 # [6-2] 일단, Money로 부터 상속하더라도 __init__을 통한 인스턴스 생성은 이루어져야 한다는 걸 알았고, amount라는 변수를 __init__메서드 안에서 생성해도 되는 걸 알았다.
 # 다만, 책에서 하듯이 클래스 간의 assertEquals는 해결 못했다. 게다가 상속을 해도 __init__메소드를 써야 하는 것도 마음에 들지 않는다.
-
+# [8-1] 단지 반환 객체를 Money로 바꿧을 뿐이다. 책에서의 진행과 같은 결과가 도출될지는 진행해봐야 알겠다.
+# [8-2] Money.dollar 라는 (franc도 마찬가지) 함수는 객체를 반환하지 못한다. 애초에 생성되지 않았기 때문인데, Money.dollar라는 함수는 Dollar객체를 생성하고 반환하는 형태로 수정되어야 한다.
+# 그런데 생성되지 않은 Money객체에서 dollar라는 메서드를 사용할 수 있는건가?
+# 파이썬에서 메서드의 첫 파라미터는 항상 self여야 한다고 해서 작성했었는데, 없애도 작동하고 원하는 결과를 만들어 냈다.!
 
 if __name__ == "__main__":
     unittest.main()
