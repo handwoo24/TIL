@@ -33,7 +33,7 @@ class Money():
         self.amount = amount
 
     def equals(self, object):
-        return self.amount == object.amount
+        return self.amount == object.amount and self.__class__ .__name__ == object.__class__.__name__
 
 
 class Dollar(Money):
@@ -66,9 +66,8 @@ class testEquality(unittest.TestCase):
     def test(self):
         self.assertTrue(Dollar(5).equals(Dollar(5)))
         self.assertFalse(Dollar(5).equals(Dollar(6)))
-        print(Dollar(5))
-        print(Dollar(6))
-
+        self.assertFalse(Dollar(5).equals(Franc(5)))
+# [7-1] 클래스의 이름으로 equals를 하고 싶어서 __class__.__name__이라고 길게 써야했는데, __class__로만 해도 충분히 작동한다.
 
 # [3-1]책에 서는 assertTrue 라던가 하는 기능들이 있는데, 파이썬에는 그런게 없는 듯, 자동완성이 나오지 않는다.
 
