@@ -17,20 +17,34 @@ class testMultiplication(unittest.TestCase):
 
 
 class Money():
+    # amount: int
+
+    # def __new__(cls, *args, **kwargs):
+    #     if not hasattr(cls, "_instance"):
+    #         cls._instance = super().__new__(cls)
+    #     return cls._instance
+
+    # def __init__(self, amount):
+    #     cls = type(self)
+    #     if not hasattr(cls, "_init"):
+    #         self.__amount = amount
+    #         cls._init = True
     def __init__(self, amount):
         self.amount = amount
-
-    def times(self, multiplier):
-        return Money(self.amount * multiplier)
 
     def equals(self, object):
         return self.amount == object.amount
 
 
 class Dollar(Money):
+
+    # amount: int
     def __init__(self, amount):
-        self.amount = amount
-        # [4-1] 파이썬의 비공개 속성은 __만 앞에 붙이면 된다. 그런데 표현할 때에는 안바꿔도 되나? 응, 안된다. __를 붙여야 하는 듯 하다.
+        super().__init__(amount)
+
+    def times(self, multiplier):
+        return Dollar(self.amount * multiplier)
+    # [4-1] 파이썬의 비공개 속성은 __만 앞에 붙이면 된다. 그런데 표현할 때에는 안바꿔도 되나? 응, 안된다. __를 붙여야 하는 듯 하다.
     # [3-1] 일단 이런 식으로 껍데기를 짜는게 여기서 말하는 가짜 구현?
     # [3-2] 책과는 달리 파이썬으로 작성하다보니, 표현이 달라서 맞나 싶지만, 되니까 맞는게 아닐까?
 
@@ -52,6 +66,8 @@ class testEquality(unittest.TestCase):
     def test(self):
         self.assertTrue(Dollar(5).equals(Dollar(5)))
         self.assertFalse(Dollar(5).equals(Dollar(6)))
+        print(Dollar(5))
+        print(Dollar(6))
 
 
 # [3-1]책에 서는 assertTrue 라던가 하는 기능들이 있는데, 파이썬에는 그런게 없는 듯, 자동완성이 나오지 않는다.
@@ -66,9 +82,15 @@ class testFrancMultiplication(unittest.TestCase):
 
 class Franc(Money):
     def __init__(self, amount):
-        self.amount = amount
+        super().__init__(amount)
+
+    def times(self, multiplier):
+        return Franc(self.amount * multiplier)
 # [5-1] 일단 책에서 진행하는 amount의 private 전환은 하지 않기로 했다. 당장 객체의 아이디가 새로 부여되서 Dollar(5) == Dollar(5)도 되지 않는다...
 # 원인은 진행하면서 찾기로 하고, 여기까지는 정상적으로 테스트가 진행된다.
+# [6-1] 싱글톤 스타일 이라는 걸 알게 되서 시도해봤는데, Dollar(5) == Dollar(6)가 되버린다. Dollar라는 객체는 모두 같게 되어버리는 듯 한데, 원하던 결과가 아니다. 게다가 엄청 길다.
+# [6-2] 일단, Money로 부터 상속하더라도 __init__을 통한 인스턴스 생성은 이루어져야 한다는 걸 알았고, amount라는 변수를 __init__메서드 안에서 생성해도 되는 걸 알았다.
+# 다만, 책에서 하듯이 클래스 간의 assertEquals는 해결 못했다. 게다가 상속을 해도 __init__메소드를 써야 하는 것도 마음에 들지 않는다.
 
 
 if __name__ == "__main__":
