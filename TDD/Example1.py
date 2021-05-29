@@ -47,7 +47,7 @@ class Dollar(Money):
         # [9-1] java로 표현되어 있는 걸, 파이썬으로 번역하려니 헷갈린다.
 
     def times(self, multiplier):
-        return Money.dollar(self.amount * multiplier)
+        return Money(self.amount * multiplier, self.__currency)
 
     def currency(self):
         return self.__currency
@@ -94,7 +94,8 @@ class Franc(Money):
         super().__init__(amount, currency)
 
     def times(self, multiplier):
-        return Money.franc(self.amount * multiplier)
+        return Money(self.amount * multiplier, self.__currency)
+    # [10-1]자 이렇게 되면 두 하위 클래스의 메서드가 일치하기 때문에 상위 클래스의 메서드로 전환이 가능해진다. 작동하는지는 모른다.
 
     def currency(self):
         return self.__currency
@@ -117,6 +118,7 @@ class testCurrency(unittest.TestCase):
         self.assertEqual("USD", Money.dollar(1).currency)
         self.assertEqual("CHF", Money.franc(1).currency)
 # [9-3]테스트가 문제없이 잘 작동한다! 만족스럽다. 클래스 구현에 대해 조금은 알 것 같다.
+# [10-1]책을 한번 보았다. 이번에는 따라하지 않고 혼자 해보려고 한다! 해야할 작업은 times메서드를 money클래스에 넣는 것이다!
 
 
 if __name__ == "__main__":
