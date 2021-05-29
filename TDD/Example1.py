@@ -18,7 +18,7 @@ class testMultiplication(unittest.TestCase):
 
 class Money():
 
-    __currency: str
+    currency: str
 
     def __init__(self, amount, currency: str):
         self.amount = amount
@@ -33,13 +33,8 @@ class Money():
     def franc(amount):
         return Franc(amount, "CHF")
 
-    def currency(self):
-        return self.__currency
-
 
 class Dollar(Money):
-
-    __currency: str
 
     # amount: int
     def __init__(self, amount, currency: str):
@@ -47,10 +42,7 @@ class Dollar(Money):
         # [9-1] java로 표현되어 있는 걸, 파이썬으로 번역하려니 헷갈린다.
 
     def times(self, multiplier):
-        return Money(self.amount * multiplier, self.__currency)
-
-    def currency(self):
-        return self.__currency
+        return Dollar(self.amount * multiplier, self.currency)
     # [4-1] 파이썬의 비공개 속성은 __만 앞에 붙이면 된다. 그런데 표현할 때에는 안바꿔도 되나? 응, 안된다. __를 붙여야 하는 듯 하다.
     # [3-1] 일단 이런 식으로 껍데기를 짜는게 여기서 말하는 가짜 구현?
     # [3-2] 책과는 달리 파이썬으로 작성하다보니, 표현이 달라서 맞나 싶지만, 되니까 맞는게 아닐까?
@@ -76,7 +68,7 @@ class testEquality(unittest.TestCase):
         self.assertFalse(Money.dollar(5).equals(Money.franc(5)))
 # [7-1] 클래스의 이름으로 equals를 하고 싶어서 __class__.__name__이라고 길게 써야했는데, __class__로만 해도 충분히 작동한다.
 
-# [3-1]책에 서는 assertTrue 라던가 하는 기능들이 있는데, 파이썬에는 그런게 없는 듯, 자동완성이 나오지 않는다.
+# [3-1] 책에 서는 assertTrue 라던가 하는 기능들이 있는데, 파이썬에는 그런게 없는 듯, 자동완성이 나오지 않는다.
 
 
 class testFrancMultiplication(unittest.TestCase):
@@ -88,17 +80,15 @@ class testFrancMultiplication(unittest.TestCase):
 
 class Franc(Money):
 
-    __currency: str
-
     def __init__(self, amount, currency: str):
         super().__init__(amount, currency)
 
     def times(self, multiplier):
-        return Money(self.amount * multiplier, self.__currency)
-    # [10-1]자 이렇게 되면 두 하위 클래스의 메서드가 일치하기 때문에 상위 클래스의 메서드로 전환이 가능해진다. 작동하는지는 모른다.
+        return Franc(self.amount * multiplier, self.currency)
+    # [10-1] 자 이렇게 되면 두 하위 클래스의 메서드가 일치하기 때문에 상위 클래스의 메서드로 전환이 가능해진다. 작동하는지는 모른다.
+    # 대뜸 메서드를 올려봤는데 안된다. 아까 스크립트 오타가 있었다. 왜 잘 됬는지 모르겠다.
+    # 출력 해보니까 가관이다. FUSD? .CHF? 이런건 어떻게 출력되는 걸까?
 
-    def currency(self):
-        return self.__currency
     # [9-2] Dollar와 Franc의 메서드를 일치시키고 상위 객체인 Money로 올리는 작업이 반복되고 있다.
     # 이런 식으로 좀 더 구체적인 모델링을 하기 위한 단계?
 
@@ -115,10 +105,13 @@ class Franc(Money):
 
 class testCurrency(unittest.TestCase):
     def test(self):
+        print(Money.dollar(1).currency)
         self.assertEqual("USD", Money.dollar(1).currency)
         self.assertEqual("CHF", Money.franc(1).currency)
-# [9-3]테스트가 문제없이 잘 작동한다! 만족스럽다. 클래스 구현에 대해 조금은 알 것 같다.
-# [10-1]책을 한번 보았다. 이번에는 따라하지 않고 혼자 해보려고 한다! 해야할 작업은 times메서드를 money클래스에 넣는 것이다!
+# [9-3] 테스트가 문제없이 잘 작동한다! 만족스럽다. 클래스 구현에 대해 조금은 알 것 같다.
+# [10-1] 책을 한번 보았다. 이번에는 따라하지 않고 혼자 해보려고 한다! 해야할 작업은 times메서드를 money클래스에 넣는 것이다!
+# [10-2] 음... amount도 그렇고 속성을 private로 설정하지 않으면 에러가 뜨지 않는다. 원인이 뭘까?
+# 그래서 책과 다르게 currency를 public으로 설정하고(public으로 설정했다기 보단, private로 설정하지 않았다.) currency() 메서드를 없애는 것으로 해결했다.
 
 
 if __name__ == "__main__":
