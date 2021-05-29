@@ -33,6 +33,10 @@ class Money():
     def franc(amount):
         return Franc(amount, "CHF")
 
+    def times(self, multiplier):
+        return Money(self.amount * multiplier, self.currency)
+    # 이제 이렇게 올리면 될까? 오, 당연히 안될 줄 알았는데, 그냥 된다. 신기한 파이썬.
+
 
 class Dollar(Money):
 
@@ -41,8 +45,6 @@ class Dollar(Money):
         super().__init__(amount, currency)
         # [9-1] java로 표현되어 있는 걸, 파이썬으로 번역하려니 헷갈린다.
 
-    def times(self, multiplier):
-        return Dollar(self.amount * multiplier, self.currency)
     # [4-1] 파이썬의 비공개 속성은 __만 앞에 붙이면 된다. 그런데 표현할 때에는 안바꿔도 되나? 응, 안된다. __를 붙여야 하는 듯 하다.
     # [3-1] 일단 이런 식으로 껍데기를 짜는게 여기서 말하는 가짜 구현?
     # [3-2] 책과는 달리 파이썬으로 작성하다보니, 표현이 달라서 맞나 싶지만, 되니까 맞는게 아닐까?
@@ -83,8 +85,8 @@ class Franc(Money):
     def __init__(self, amount, currency: str):
         super().__init__(amount, currency)
 
-    def times(self, multiplier):
-        return Franc(self.amount * multiplier, self.currency)
+    # def times(self, multiplier):
+    #     return Franc(self.amount * multiplier, self.currency)
     # [10-1] 자 이렇게 되면 두 하위 클래스의 메서드가 일치하기 때문에 상위 클래스의 메서드로 전환이 가능해진다. 작동하는지는 모른다.
     # 대뜸 메서드를 올려봤는데 안된다. 아까 스크립트 오타가 있었다. 왜 잘 됬는지 모르겠다.
     # 출력 해보니까 가관이다. FUSD? .CHF? 이런건 어떻게 출력되는 걸까?
