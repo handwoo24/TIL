@@ -25,24 +25,26 @@ class Money():
         self.currency = currency
 
     def equals(self, object):
-        return self.amount == object.amount and self.__class__ .__name__ == object.__class__.__name__
+        return self.amount == object.amount and self.currency == object.currency
+        # 빼먹었다. 하지만 간단히 해결.
 
+    # [11-1] 이제 하위의 2개 클래스가 모두 사라졌다. 테스트가 하나 줄어들긴 했지만, 사실 그건 첫번째 테스트와 똑같다!
     def dollar(amount):
-        return Dollar(amount, "USD")
+        return Money(amount, "USD")
 
     def franc(amount):
-        return Franc(amount, "CHF")
+        return Money(amount, "CHF")
 
     def times(self, multiplier):
         return Money(self.amount * multiplier, self.currency)
     # 이제 이렇게 올리면 될까? 오, 당연히 안될 줄 알았는데, 그냥 된다. 신기한 파이썬.
 
 
-class Dollar(Money):
+# class Dollar(Money):
 
-    # amount: int
-    def __init__(self, amount, currency: str):
-        super().__init__(amount, currency)
+#     # amount: int
+#     def __init__(self, amount, currency: str):
+#         super().__init__(amount, currency)
         # [9-1] java로 표현되어 있는 걸, 파이썬으로 번역하려니 헷갈린다.
 
     # [4-1] 파이썬의 비공개 속성은 __만 앞에 붙이면 된다. 그런데 표현할 때에는 안바꿔도 되나? 응, 안된다. __를 붙여야 하는 듯 하다.
@@ -73,17 +75,17 @@ class testEquality(unittest.TestCase):
 # [3-1] 책에 서는 assertTrue 라던가 하는 기능들이 있는데, 파이썬에는 그런게 없는 듯, 자동완성이 나오지 않는다.
 
 
-class testFrancMultiplication(unittest.TestCase):
-    def test(self):
-        five = Money.franc(5)
-        self.assertEqual(Money.franc(10).amount, five.times(2).amount)
-        self.assertEqual(Money.franc(15).amount, five.times(3).amount)
+# class testFrancMultiplication(unittest.TestCase):
+#     def test(self):
+#         five = Money.franc(5)
+#         self.assertEqual(Money.franc(10).amount, five.times(2).amount)
+#         self.assertEqual(Money.franc(15).amount, five.times(3).amount)
 
 
-class Franc(Money):
+# class Franc(Money):
 
-    def __init__(self, amount, currency: str):
-        super().__init__(amount, currency)
+#     def __init__(self, amount, currency: str):
+#         super().__init__(amount, currency)
 
     # def times(self, multiplier):
     #     return Franc(self.amount * multiplier, self.currency)
