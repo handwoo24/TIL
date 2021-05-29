@@ -41,15 +41,25 @@ class Money():
     def franc(amount):
         return Franc(amount)
 
+    def currency():
+        pass
+
 
 class Dollar(Money):
+
+    __currency: str
 
     # amount: int
     def __init__(self, amount):
         super().__init__(amount)
+        self.__currency = "USD"
+        # [9-1] java로 표현되어 있는 걸, 파이썬으로 번역하려니 헷갈린다.
 
     def times(self, multiplier):
         return Money(self.amount * multiplier)
+
+    def currency(self):
+        return self.__currency
     # [4-1] 파이썬의 비공개 속성은 __만 앞에 붙이면 된다. 그런데 표현할 때에는 안바꿔도 되나? 응, 안된다. __를 붙여야 하는 듯 하다.
     # [3-1] 일단 이런 식으로 껍데기를 짜는게 여기서 말하는 가짜 구현?
     # [3-2] 책과는 달리 파이썬으로 작성하다보니, 표현이 달라서 맞나 싶지만, 되니까 맞는게 아닐까?
@@ -86,12 +96,20 @@ class testFrancMultiplication(unittest.TestCase):
 
 
 class Franc(Money):
+
+    __currency: str
+
     def __init__(self, amount):
         super().__init__(amount)
+        self.__currency = "CHF"
 
     def times(self, multiplier):
         return Money(self.amount * multiplier)
 
+    def currency(self):
+        return self.__currency
+    # [9-2] Dollar와 Franc의 메서드를 일치시키고 상위 객체인 Money로 올리는 작업이 반복되고 있다.
+    # 이런 식으로 좀 더 구체적인 모델링을 하기 위한 단계?
 
 # [5-1] 일단 책에서 진행하는 amount의 private 전환은 하지 않기로 했다. 당장 객체의 아이디가 새로 부여되서 Dollar(5) == Dollar(5)도 되지 않는다...
 # 원인은 진행하면서 찾기로 하고, 여기까지는 정상적으로 테스트가 진행된다.
@@ -102,6 +120,13 @@ class Franc(Money):
 # [8-2] Money.dollar 라는 (franc도 마찬가지) 함수는 객체를 반환하지 못한다. 애초에 생성되지 않았기 때문인데, Money.dollar라는 함수는 Dollar객체를 생성하고 반환하는 형태로 수정되어야 한다.
 # 그런데 생성되지 않은 Money객체에서 dollar라는 메서드를 사용할 수 있는건가?
 # 파이썬에서 메서드의 첫 파라미터는 항상 self여야 한다고 해서 작성했었는데, 없애도 작동하고 원하는 결과를 만들어 냈다.!
+
+
+class testCurrency(unittest.TestCase):
+    def test(self):
+        self.assertEquals("USD", Money.dollar(1).currency())
+        self.assertEquals("CHF", Money.franc(1).currency())
+
 
 if __name__ == "__main__":
     unittest.main()
