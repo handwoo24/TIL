@@ -5,8 +5,8 @@ from unittest.case import TestCase
 class testMultiplication(unittest.TestCase):
     def test(self):
         five = Money.dollar(5)
-        self.assertEquals(Money.dollar(10).amount, five.times(2).amount)
-        self.assertEquals(Money.dollar(15).amount, five.times(3).amount)
+        self.assertEqual(Money.dollar(10).amount, five.times(2).amount)
+        self.assertEqual(Money.dollar(15).amount, five.times(3).amount)
 # 아직은 컴파일 될 수 없는 코드다. 이런 기능의 함수를 만들고 싶은걸까?
 # 책에서 말하는 이 코드의 4가지 문제, 1. Dollar 클래스가 없음 2. 생성자가 없음 3. time(int)메서드가 없음 4. amonut 필드가 없음
 # 먼저 Dollar 클래스를 선언할 것이다. 사실 나는 객체에 익숙하지 않다.
@@ -17,32 +17,24 @@ class testMultiplication(unittest.TestCase):
 
 
 class Money():
-    # amount: int
 
-    # def __new__(cls, *args, **kwargs):
-    #     if not hasattr(cls, "_instance"):
-    #         cls._instance = super().__new__(cls)
-    #     return cls._instance
+    __currency: str
 
-    # def __init__(self, amount):
-    #     cls = type(self)
-    #     if not hasattr(cls, "_init"):
-    #         self.__amount = amount
-    #         cls._init = True
-    def __init__(self, amount):
+    def __init__(self, amount, currency: str):
         self.amount = amount
+        self.currency = currency
 
     def equals(self, object):
         return self.amount == object.amount and self.__class__ .__name__ == object.__class__.__name__
 
     def dollar(amount):
-        return Dollar(amount)
+        return Dollar(amount, "USD")
 
     def franc(amount):
-        return Franc(amount)
+        return Franc(amount, "CHF")
 
-    def currency():
-        pass
+    def currency(self):
+        return self.__currency
 
 
 class Dollar(Money):
@@ -50,13 +42,12 @@ class Dollar(Money):
     __currency: str
 
     # amount: int
-    def __init__(self, amount):
-        super().__init__(amount)
-        self.__currency = "USD"
+    def __init__(self, amount, currency: str):
+        super().__init__(amount, currency)
         # [9-1] java로 표현되어 있는 걸, 파이썬으로 번역하려니 헷갈린다.
 
     def times(self, multiplier):
-        return Money(self.amount * multiplier)
+        return Money.dollar(self.amount * multiplier)
 
     def currency(self):
         return self.__currency
@@ -91,20 +82,19 @@ class testEquality(unittest.TestCase):
 class testFrancMultiplication(unittest.TestCase):
     def test(self):
         five = Money.franc(5)
-        self.assertEquals(Money.franc(10).amount, five.times(2).amount)
-        self.assertEquals(Money.franc(15).amount, five.times(3).amount)
+        self.assertEqual(Money.franc(10).amount, five.times(2).amount)
+        self.assertEqual(Money.franc(15).amount, five.times(3).amount)
 
 
 class Franc(Money):
 
     __currency: str
 
-    def __init__(self, amount):
-        super().__init__(amount)
-        self.__currency = "CHF"
+    def __init__(self, amount, currency: str):
+        super().__init__(amount, currency)
 
     def times(self, multiplier):
-        return Money(self.amount * multiplier)
+        return Money.franc(self.amount * multiplier)
 
     def currency(self):
         return self.__currency
@@ -124,8 +114,9 @@ class Franc(Money):
 
 class testCurrency(unittest.TestCase):
     def test(self):
-        self.assertEquals("USD", Money.dollar(1).currency())
-        self.assertEquals("CHF", Money.franc(1).currency())
+        self.assertEqual("USD", Money.dollar(1).currency)
+        self.assertEqual("CHF", Money.franc(1).currency)
+# [9-3]테스트가 문제없이 잘 작동한다! 만족스럽다. 클래스 구현에 대해 조금은 알 것 같다.
 
 
 if __name__ == "__main__":
