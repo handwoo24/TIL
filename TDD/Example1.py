@@ -20,11 +20,11 @@ class Money():
 
     currency: str
 
-    def __init__(self, amount, currency: str):
+    def __init__(self, amount: int, currency: str):
         self.amount = amount
         self.currency = currency
 
-    def equals(self, object):
+    def equals(self, object: object):
         return self.amount == object.amount and self.currency == object.currency
         # 빼먹었다. 하지만 간단히 해결.
 
@@ -35,10 +35,12 @@ class Money():
     def franc(amount):
         return Money(amount, "CHF")
 
-    def times(self, multiplier):
+    def times(self, multiplier: int):
         return Money(self.amount * multiplier, self.currency)
     # 이제 이렇게 올리면 될까? 오, 당연히 안될 줄 알았는데, 그냥 된다. 신기한 파이썬.
 
+    def plus(self, addend: object):
+        return Money(self.amount + addend.amount, self.currency)
 
 # class Dollar(Money):
 
@@ -116,6 +118,28 @@ class testCurrency(unittest.TestCase):
 # [10-1] 책을 한번 보았다. 이번에는 따라하지 않고 혼자 해보려고 한다! 해야할 작업은 times메서드를 money클래스에 넣는 것이다!
 # [10-2] 음... amount도 그렇고 속성을 private로 설정하지 않으면 에러가 뜨지 않는다. 원인이 뭘까?
 # 그래서 책과 다르게 currency를 public으로 설정하고(public으로 설정했다기 보단, private로 설정하지 않았다.) currency() 메서드를 없애는 것으로 해결했다.
+
+
+class Expression:
+    pass
+
+
+class Bank:
+    def reduce(self, source: Expression, to: str):
+        return Money.dollar(10)
+
+
+class testSimpleAddition(unittest.TestCase):
+    def test(self):
+        sum = Money.dollar(5).plus(Money.dollar(5))
+        self.assertTrue(Money.dollar(10).equals(sum))
+        # [12-1] 이 부분이 책하고 다른데! 그건 어쩔 수 없다. 파이썬은 서로 다른 객체로 인식되니까.
+        five = Money.dollar(5)
+        sum: Expression = five.plus(five)
+        bank = Bank()
+        reduced = bank.reduce(sum, "USD")
+        self.assertTrue(Money.dollar(10).equals(reduced))
+        # [12-2] 일단 막 따라하는 중, 켄트 백이 원하는 게 맞는지는 모르지만! 어찌 됬든 돌아는 간다!
 
 
 if __name__ == "__main__":
