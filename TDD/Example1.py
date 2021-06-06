@@ -137,7 +137,8 @@ class Sum(Expression):
         self.addend = addend
 
     def reduce(self, bank, to: str):
-        amount = self.augend.amount + self.addend.amount
+        amount = self.augend.reduce(
+            bank, to).amount + self.addend.reduce(bank, to).amount
         return Money(amount, to)
 
 
@@ -206,6 +207,16 @@ class testReduceMoneyDifferentCurrency(unittest.TestCase):
         bank.addRate("CHF", "USD", 2)
         result = bank.reduce(Money.franc(2), "USD")
         self.assertTrue(Money.dollar(1).equals(result))
+
+
+class testMixedAddition(unittest.TestCase):
+    def test(self):
+        fiveBucks = Money.dollar(5)
+        tenFrancs = Money.franc(10)
+        bank = Bank()
+        bank.addRate("CHF", "USD", 2)
+        result = bank.reduce(fiveBucks.plus(tenFrancs), "USD")
+        self.assertTrue(Money.dollar(10).equals(result))
 
 
 if __name__ == "__main__":
