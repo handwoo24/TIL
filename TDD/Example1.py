@@ -40,8 +40,10 @@ class Money():
     # 이제 이렇게 올리면 될까? 오, 당연히 안될 줄 알았는데, 그냥 된다. 신기한 파이썬.
 
     def plus(self, addend: object):
-        return Money(self.amount + addend.amount, self.currency)
+        return Sum(self, addend)
 
+    def reduce(self, to: str):
+        return self
 # class Dollar(Money):
 
 #     # amount: int
@@ -121,18 +123,32 @@ class testCurrency(unittest.TestCase):
 
 
 class Expression:
-    pass
+    def reduce(to: str):
+        pass
+
+
+class Sum(Expression):
+    augend: Money
+    addend: Money
+
+    def __init__(self, augend: Money, addend: Money):
+        self.augend = augend
+        self.addend = addend
+
+    def reduce(self, to: str):
+        amount = self.augend.amount + self.addend.amount
+        return Money(amount, to)
 
 
 class Bank:
-    def reduce(self, source: Expression, to: str):
-        return Money.dollar(10)
+    def reduce(self, source: Sum, to: str):
+        return source.reduce(to)
 
 
 class testSimpleAddition(unittest.TestCase):
     def test(self):
-        sum = Money.dollar(5).plus(Money.dollar(5))
-        self.assertTrue(Money.dollar(10).equals(sum))
+        # sum = Money.dollar(5).plus(Money.dollar(5))
+        # self.assertTrue(Money.dollar(10).equals(sum))
         # [12-1] 이 부분이 책하고 다른데! 그건 어쩔 수 없다. 파이썬은 서로 다른 객체로 인식되니까.
         five = Money.dollar(5)
         sum: Expression = five.plus(five)
@@ -140,6 +156,34 @@ class testSimpleAddition(unittest.TestCase):
         reduced = bank.reduce(sum, "USD")
         self.assertTrue(Money.dollar(10).equals(reduced))
         # [12-2] 일단 막 따라하는 중, 켄트 백이 원하는 게 맞는지는 모르지만! 어찌 됬든 돌아는 간다!
+
+# [13-1] interface를 구현하는 부분이 어렵다. 대신 클래스로 구현하려 한다.
+# [13-2] 잘 이해가 안가서, java의 인터페이스와 implements에 대한 기능을 찾아봤다.
+# 파이썬에서는 그냥 부모 클래스에서 메서드를 정의하고 이름을 같게 해서 오버라이딩해 쓰면 될 것 같다.
+
+
+class testPlusReturnSum(unittest.TestCase):
+    def test(self):
+        five = Money.dollar(5)
+        result = five.plus(five)
+        sum = result
+        self.assertTrue(five.equals(sum.augend))
+        self.assertTrue(five.equals(sum.addend))
+
+
+class testReduceSum(unittest.TestCase):
+    def test(self):
+        sum = Sum(Money.dollar(3), Money.dollar(4))
+        bank = Bank()
+        result = bank.reduce(sum, "USD")
+        self.assertTrue(Money.dollar(7), result)
+
+
+class testReduceMoney(unittest.TestCase):
+    def test(self):
+        bank = Bank()
+        result = bank.reduce(Money.dollar(1), "USD")
+        self.assertTrue(Money.dollar(1).equals(result))
 
 
 if __name__ == "__main__":
