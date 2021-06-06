@@ -1,4 +1,5 @@
 import unittest
+from unittest import result
 from unittest.case import TestCase
 
 
@@ -123,12 +124,7 @@ class testCurrency(unittest.TestCase):
 # 그래서 책과 다르게 currency를 public으로 설정하고(public으로 설정했다기 보단, private로 설정하지 않았다.) currency() 메서드를 없애는 것으로 해결했다.
 
 
-class Expression:
-    def reduce(to: str):
-        pass
-
-
-class Sum(Expression):
+class Sum():
     augend: Money
     addend: Money
 
@@ -140,6 +136,9 @@ class Sum(Expression):
         amount = self.augend.reduce(
             bank, to).amount + self.addend.reduce(bank, to).amount
         return Money(amount, to)
+
+    def plus(self, addend):
+        return Sum(self, addend)
 
 
 class Bank:
@@ -217,6 +216,35 @@ class testMixedAddition(unittest.TestCase):
         bank.addRate("CHF", "USD", 2)
         result = bank.reduce(fiveBucks.plus(tenFrancs), "USD")
         self.assertTrue(Money.dollar(10).equals(result))
+
+    # [15-2]책에서 인터페이스로의 메서드와 속성을 이동시키고 있는데, 마땅히 좋은 방법이 생각나지 않는다.
+    # 굳이 그럴 필요가 있나? sum이라는 클래스가 좀 이상해보이긴 하지만, 여기에서는 오히려 Expression이 없어지는게 맞지 않을까
+    # 심지어 아직도 Expression에는 아무것도 정의되어 있지 않다.
+
+
+class testSumPlusMoney(unittest.TestCase):
+    def test(self):
+        fiveBucks = Money.dollar(5)
+        tenFrancs = Money.franc(10)
+        bank = Bank()
+        bank.addRate("CHF", "USD", 2)
+        sum = Sum(fiveBucks, tenFrancs).plus(fiveBucks)
+        result = bank.reduce(sum, "USD")
+        self.assertTrue(Money.dollar(15).equals(result))
+
+
+class testSumTimes(unittest.TestCase):
+    def test(self):
+        fiveBucks = Money.dollar(5)
+        tenFrancs = Money.franc(10)
+        bank = Bank()
+        bank.addRate("CHF", "USD", 2)
+        sum = Sum(fiveBucks, tenFrancs).times(2)
+        result = bank.reduce(sum, "USD")
+        self.assertTrue(Money.dollar(20).equals(result))
+
+# [16] 이렇게 TDD의 Money예제는 끝이났다. 추상클래스에 대한 공부는 따로 조금 되야할 거 같은데, 나중에 다시 마주치게되면 시도해볼 듯 하다.
+# 다음 예제에서는 파이썬으로 진행한다고 한다. 조금 더 빠르게 진행할 수 있지 않을까?
 
 
 if __name__ == "__main__":
