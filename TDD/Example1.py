@@ -42,8 +42,9 @@ class Money():
     def plus(self, addend: object):
         return Sum(self, addend)
 
-    def reduce(self, to: str):
-        return self
+    def reduce(self, bank, to: str):
+        rate = bank.rate(self.currency, to)
+        return Money(self.amount / rate, to)
 # class Dollar(Money):
 
 #     # amount: int
@@ -135,14 +136,27 @@ class Sum(Expression):
         self.augend = augend
         self.addend = addend
 
-    def reduce(self, to: str):
+    def reduce(self, bank, to: str):
         amount = self.augend.amount + self.addend.amount
         return Money(amount, to)
 
 
 class Bank:
+    rates = {}
+    # [14-1]java에선 해쉬맵을 쓰던데, 그냥 딕셔너리를 활용하면 편하다.
+
     def reduce(self, source: Sum, to: str):
-        return source.reduce(to)
+        return source.reduce(self, to)
+
+    def rate(self, before, to):
+        if before == to:
+            return 1
+        rate = self.rates[(before, to)]
+        return rate
+
+    def addRate(self, before, to, rate):
+        self.rates[(before, to)] = rate
+        pass
 
 
 class testSimpleAddition(unittest.TestCase):
@@ -183,6 +197,14 @@ class testReduceMoney(unittest.TestCase):
     def test(self):
         bank = Bank()
         result = bank.reduce(Money.dollar(1), "USD")
+        self.assertTrue(Money.dollar(1).equals(result))
+
+
+class testReduceMoneyDifferentCurrency(unittest.TestCase):
+    def test(self):
+        bank = Bank()
+        bank.addRate("CHF", "USD", 2)
+        result = bank.reduce(Money.franc(2), "USD")
         self.assertTrue(Money.dollar(1).equals(result))
 
 
