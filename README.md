@@ -25,7 +25,9 @@ Django
 
 - [ ] [리액트를 다루는 기술](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9791160508796&orderClick=LAG&Kc=)
 
-- [ ] [테스트 주도 개발](http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788966261024)
+- [x] [테스트 주도 개발](http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788966261024)
+
+- [ ] [Do it! 타입스크립트 프로그래밍](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9791163031482)
 
 ---
 
@@ -54,6 +56,11 @@ Django
   - TDD 실무에 적용해보기
   - 코딩 퀴즈 탐색
 
+- 5주차: 21.06.14 ~ 21.06.20
+  
+  - 타입스크립트로 TDD 작성하기.
+  - 일일 계획 세우기  
+
 ## 주간 한 일
 
 - 1주차: 21.05.20 ~ 21.05.23
@@ -70,8 +77,13 @@ Django
   - [테스트 주도 개발] 독서 (160page / 380page)
   - [테스트 주도 개발] Money 예제 완료
 
+- 4주차: 21.06.07 ~ 21.06.13
+  
+  - 타입스크립트 개발 환경 셋팅
+  - [Do it! 타입스크립트 프로그래밍] 구매하기 
 ## 주간 회고
 
 - 1주차: TIL을 시작했다. 첫 주는 대략적인 계획 수립과 당장 할 일을 작성하는데 그쳤다. 꾸준히 이루어지길 바란다.
 - 2주차: 생각보다 1주에 한 권을 완독하는 게 쉽지 않다. 2주에 한 권으로 늘려야 할까? 주 5회 커밋은 지켰다.
 - 3주차: 결국 독서 목표를 하루 30분으로 바꾸었다. 현실적인 목표인 것 같다. 이번주는 주 5회 커밋이 지켜지지 않았다. 하지만 드디어 TDD의 Money예제를 끝냈다.
+- 4주차: 이번주는 Rule을 지키지 못했다. 엄청난 나태... 반성하면서 든 생각은, 주간 계획 뿐만 아니라 일일 계획을 세우는 게, 일일 퀘스트 처럼 지키기 좋을 것이라는 판단이다.
