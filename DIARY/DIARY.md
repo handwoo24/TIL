@@ -15,13 +15,20 @@
  기본 서적을 구매했다. [Do it! 타입스크립트 프로그래밍](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9791163031482) 이다.    
  주말에 구매했는데, 오늘 배송이 올 줄 알았지만 오지 않아서 당혹스럽다. 아마 내일은 도착해서 볼 수 있을 것이다.   
  TIL을 지키기 위해서 일일 계획을 세우려다가 이렇게 다이어리 형식으로 내일 할 일을 정하기로 했다.   
- 내가 읽어도 정말 두서 없는 글이라 부끄럽다.   
  
  #### Tomorrow's plan
  
   -  [Design patterns/Abstract Factory](https://refactoring.guru/design-patterns/abstract-factory) 따라해보기
   -  [Do it! 타입스크립트 프로그래밍](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9791163031482) 공부하기
 ---
+ ## 21.06.16
  
+  디자인 패턴에 대해서 최근 업무를 수행하면서 고민하고 있다.    
+  클래스와 추상 클래스, 인터페이스, 인스턴스 까지 뭔가 나는 비슷비슷하다고 느껴지는데,    
+  맞는 것인지는 모르지만, 현재는 인스턴스의 정의가 클래스, 그러니까 인스턴스는 정의된 클래스가 선언되어 만들어진 객체라는 것?   
+  지금은 그렇게 이해하고 있다. 추상 클래스와 인터페이스는 조금 더 리서치가 필요해 보인다.    
+  
+  #### Tomorrow's plan
+   - [Do it! 타입스크립트 프로그래밍] ~ 53page
  
 
