@@ -7,7 +7,7 @@ export interface Iperson {
 }
 
 // 인터페이스가 나온다. 요즘 자주 보인다.
-class Person implements Iperson {
+export default class Person implements Iperson {
     constructor(public name: string, public age: number) {}
 }
 

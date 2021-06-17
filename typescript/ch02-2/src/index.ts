@@ -1,10 +1,9 @@
-import { Iperson, makePerson } from "./person/Person"
+import IPerson from "./person/IPerson"
+import Person from './person/Person'
+import Chance from 'chance'
+import * as R from 'ramda'
 
-const testMakePerson = (): void => {
-    let jane: Iperson = makePerson('jane')
-    //보면 ""보다 ''를 많이 쓰는 것 같다.
-    let jack: Iperson = makePerson('jack')
-    console.log(jane, jack)
-}
-
-testMakePerson()
+const chance = new Chance()
+let persons: IPerson[] = R.range(0, 2)
+    .map((n: number) => new Person(chance.name(), chance.age()))
+console.log(persons)
