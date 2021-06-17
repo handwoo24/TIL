@@ -1,4 +1,5 @@
-import * as U from '../utils/makeRandomNumber'
+import {makeRandomNumber} from '../utils/makeRandomNumber'
+import IPerson from './IPerson'
 
 export interface Iperson {
     name: string
@@ -11,5 +12,5 @@ class Person implements Iperson {
 }
 
 export const makePerson = (name: string,
-    age:number = U.makeRandomNumber()) => ({name, age})
+    age:number = makeRandomNumber()) => ({name, age})
     //화살표 함수는 리액트 잠깐 보면서 처음 본건데, 아직도 헷갈린다. 그러니까 이게 할당한다는 거였던 거 같은데.
