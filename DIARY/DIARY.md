@@ -30,5 +30,11 @@
   
   #### Tomorrow's plan
    - [Do it! 타입스크립트 프로그래밍] ~ 53page
+  
+  
+ ## 21.06.20
+ 
+#### Tommorrw's plan
+   - [Do it! 타입스크립트 프로그래밍] Chapter 3 / ~ 75page
  
 
