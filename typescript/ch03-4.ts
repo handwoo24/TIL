@@ -29,3 +29,13 @@ console.log(detail)
 let part1 = {name: 'jane'}, part2 = {age:22}, part3 = {city: 'soeul'}
 let merged = {...part1,...part2,...part3}
 console.log(merged)
+
+export default interface INameable {
+    name: string
+}
+
+let obj: object = {name: 'Jack'}
+
+let name1 = (<INameable>obj).name
+let name2 = (obj as INameable).name
+console.log(name1, name2)
