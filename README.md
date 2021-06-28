@@ -59,7 +59,7 @@ Typescript
   - 코딩 퀴즈 탐색
 
 - 5주차: 21.06.14 ~ 21.06.20
-  
+   
   - 타입스크립트로 TDD 작성하기.
   - 일일 계획 세우기 
 
@@ -70,6 +70,11 @@ Typescript
   - 실습 Chapter 5 / ~138page
   - 실습 Chapter 6, 7 / ~188page
 
+- 7주차: 21.06.28 ~ 21.07.04
+
+  - [Do it! 타입스크립트 프로그래밍] 실습 Chapter 4 / ~105page
+  - 실습 Chapter 5 / ~138page
+  - selenium을 활용한 python 웹 다운로더 
 
 ## 주간 한 일
 
