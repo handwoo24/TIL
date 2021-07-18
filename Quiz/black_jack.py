@@ -11,7 +11,14 @@ class Dealer:
         
         return card_list
         
-    pass
+    @property
+    def max(self) -> int:
+        sum_of_card_number = random.randrange(10, 300000)
+        return sum_of_card_number
+    
+    @property
+    def number(self) -> int:
+        return random.randrange(3, 100)
 
 def main():
     dealer = Dealer()
