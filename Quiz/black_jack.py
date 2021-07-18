@@ -20,8 +20,16 @@ class Dealer:
     def number(self) -> int:
         return random.randrange(3, 100)
 
+class BlackJackMachine:
+    pass
+
 def main():
     dealer = Dealer()
+    number_cards: int = dealer.number
+    sum_of_card_number: int = dealer.max
+    card_list: List[int] = dealer.shuffle(number_cards)
+
+    black_jack_machine = BlackJackMachine()
     pass
 
 if __name__ == "__main__":
